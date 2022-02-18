@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0dcc317a8eae4a7396b0e53057271446" Name="Diagram1">
+        <EntityTypeShape EntityType="ClipSlitModel.Category" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClipSlitModel.Clip" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClipSlitModel.ClipSpeaker" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClipSlitModel.ClipTag" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClipSlitModel.Medium" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClipSlitModel.Source" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClipSlitModel.Speaker" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClipSlitModel.SubmitterDetail" Width="1.5" PointX="5.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClipSlitModel.Tag" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <AssociationConnector Association="ClipSlitModel.FK_Clips_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="ClipSlitModel.FK_Clips_Mediums" ManuallyRouted="false" />
+        <AssociationConnector Association="ClipSlitModel.FK_Clips_Sources" ManuallyRouted="false" />
+        <AssociationConnector Association="ClipSlitModel.FK_ClipSpeakers_Clips" ManuallyRouted="false" />
+        <AssociationConnector Association="ClipSlitModel.FK_ClipTags_Clips" ManuallyRouted="false" />
+        <AssociationConnector Association="ClipSlitModel.FK_ClipSpeakers_Speakers" ManuallyRouted="false" />
+        <AssociationConnector Association="ClipSlitModel.FK_ClipTags_Tags" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

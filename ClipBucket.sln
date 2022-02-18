@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1738
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipBucket.UI.MVC", "ClipBucket.UI.MVC\ClipBucket.UI.MVC.csproj", "{A5C73AB7-1B0F-4A86-B98A-C6A2D38D0BA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipBucket.UI.MVC", "ClipBucket.UI.MVC\ClipBucket.UI.MVC.csproj", "{01AA2D54-7702-4E98-A062-F213BB7F446A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipBucket.DATA.EF", "ClipBucket.DATA.EF\ClipBucket.DATA.EF.csproj", "{45A3D493-2E62-45CD-935C-D5ACBADF9276}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A5C73AB7-1B0F-4A86-B98A-C6A2D38D0BA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5C73AB7-1B0F-4A86-B98A-C6A2D38D0BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5C73AB7-1B0F-4A86-B98A-C6A2D38D0BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5C73AB7-1B0F-4A86-B98A-C6A2D38D0BA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01AA2D54-7702-4E98-A062-F213BB7F446A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01AA2D54-7702-4E98-A062-F213BB7F446A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01AA2D54-7702-4E98-A062-F213BB7F446A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01AA2D54-7702-4E98-A062-F213BB7F446A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45A3D493-2E62-45CD-935C-D5ACBADF9276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45A3D493-2E62-45CD-935C-D5ACBADF9276}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45A3D493-2E62-45CD-935C-D5ACBADF9276}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45A3D493-2E62-45CD-935C-D5ACBADF9276}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

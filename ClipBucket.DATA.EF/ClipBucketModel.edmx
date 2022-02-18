@@ -1,0 +1,557 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ClipSlitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clips">
+          <Key>
+            <PropertyRef Name="ClipId" />
+          </Key>
+          <Property Name="ClipId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClipTitle" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="TranscriptFile" Type="varchar" MaxLength="30" />
+          <Property Name="SubmitterId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SourceId" Type="int" Nullable="false" />
+          <Property Name="ClipLength" Type="int" Nullable="false" />
+          <Property Name="MediumId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClipSpeakers">
+          <Key>
+            <PropertyRef Name="ClipSpeakerId" />
+          </Key>
+          <Property Name="ClipSpeakerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClipId" Type="int" Nullable="false" />
+          <Property Name="SpeakerId" Type="int" Nullable="false" />
+          <Property Name="SpeakerOrder" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClipTags">
+          <Key>
+            <PropertyRef Name="ClipTagId" />
+          </Key>
+          <Property Name="ClipTagId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClipId" Type="int" Nullable="false" />
+          <Property Name="TagId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mediums">
+          <Key>
+            <PropertyRef Name="MediumId" />
+          </Key>
+          <Property Name="MediumId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MediumName" Type="char" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sources">
+          <Key>
+            <PropertyRef Name="SourceId" />
+          </Key>
+          <Property Name="SourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SourceName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Website" Type="varchar" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="Speakers">
+          <Key>
+            <PropertyRef Name="SpeakerId" />
+          </Key>
+          <Property Name="SpeakerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="25" />
+          <Property Name="Company" Type="varchar" MaxLength="50" />
+          <Property Name="Website" Type="varchar" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="SubmitterDetails">
+          <Key>
+            <PropertyRef Name="SubmitterId" />
+          </Key>
+          <Property Name="SubmitterId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" />
+          <Property Name="LastName" Type="varchar" MaxLength="30" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="ProfileImage" Type="varchar" MaxLength="80" />
+          <Property Name="Website" Type="varchar" MaxLength="80" />
+          <Property Name="SubmitterBio" Type="varchar(max)" />
+          <Property Name="Pubkey" Type="varchar" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="TagId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TagName" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Clips_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Clips" Type="Self.Clips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Clips">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clips_Mediums">
+          <End Role="Mediums" Type="Self.Mediums" Multiplicity="1" />
+          <End Role="Clips" Type="Self.Clips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mediums">
+              <PropertyRef Name="MediumId" />
+            </Principal>
+            <Dependent Role="Clips">
+              <PropertyRef Name="MediumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clips_Sources">
+          <End Role="Sources" Type="Self.Sources" Multiplicity="1" />
+          <End Role="Clips" Type="Self.Clips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sources">
+              <PropertyRef Name="SourceId" />
+            </Principal>
+            <Dependent Role="Clips">
+              <PropertyRef Name="SourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClipSpeakers_Clips">
+          <End Role="Clips" Type="Self.Clips" Multiplicity="1" />
+          <End Role="ClipSpeakers" Type="Self.ClipSpeakers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clips">
+              <PropertyRef Name="ClipId" />
+            </Principal>
+            <Dependent Role="ClipSpeakers">
+              <PropertyRef Name="ClipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClipSpeakers_Speakers">
+          <End Role="Speakers" Type="Self.Speakers" Multiplicity="1" />
+          <End Role="ClipSpeakers" Type="Self.ClipSpeakers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Speakers">
+              <PropertyRef Name="SpeakerId" />
+            </Principal>
+            <Dependent Role="ClipSpeakers">
+              <PropertyRef Name="SpeakerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClipTags_Clips">
+          <End Role="Clips" Type="Self.Clips" Multiplicity="1" />
+          <End Role="ClipTags" Type="Self.ClipTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clips">
+              <PropertyRef Name="ClipId" />
+            </Principal>
+            <Dependent Role="ClipTags">
+              <PropertyRef Name="ClipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClipTags_Tags">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
+          <End Role="ClipTags" Type="Self.ClipTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="TagId" />
+            </Principal>
+            <Dependent Role="ClipTags">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClipSlitModelStoreContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clips" EntityType="Self.Clips" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClipSpeakers" EntityType="Self.ClipSpeakers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClipTags" EntityType="Self.ClipTags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mediums" EntityType="Self.Mediums" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sources" EntityType="Self.Sources" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Speakers" EntityType="Self.Speakers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubmitterDetails" EntityType="Self.SubmitterDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Clips_Categories" Association="Self.FK_Clips_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Clips" EntitySet="Clips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clips_Mediums" Association="Self.FK_Clips_Mediums">
+            <End Role="Mediums" EntitySet="Mediums" />
+            <End Role="Clips" EntitySet="Clips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clips_Sources" Association="Self.FK_Clips_Sources">
+            <End Role="Sources" EntitySet="Sources" />
+            <End Role="Clips" EntitySet="Clips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClipSpeakers_Clips" Association="Self.FK_ClipSpeakers_Clips">
+            <End Role="Clips" EntitySet="Clips" />
+            <End Role="ClipSpeakers" EntitySet="ClipSpeakers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClipSpeakers_Speakers" Association="Self.FK_ClipSpeakers_Speakers">
+            <End Role="Speakers" EntitySet="Speakers" />
+            <End Role="ClipSpeakers" EntitySet="ClipSpeakers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClipTags_Clips" Association="Self.FK_ClipTags_Clips">
+            <End Role="Clips" EntitySet="Clips" />
+            <End Role="ClipTags" EntitySet="ClipTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClipTags_Tags" Association="Self.FK_ClipTags_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="ClipTags" EntitySet="ClipTags" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClipSlitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Clips" Relationship="Self.FK_Clips_Categories" FromRole="Categories" ToRole="Clips" />
+        </EntityType>
+        <EntityType Name="Clip">
+          <Key>
+            <PropertyRef Name="ClipId" />
+          </Key>
+          <Property Name="ClipId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClipTitle" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="TranscriptFile" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SubmitterId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SourceId" Type="Int32" Nullable="false" />
+          <Property Name="ClipLength" Type="Int32" Nullable="false" />
+          <Property Name="MediumId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Clips_Categories" FromRole="Clips" ToRole="Categories" />
+          <NavigationProperty Name="Medium" Relationship="Self.FK_Clips_Mediums" FromRole="Clips" ToRole="Mediums" />
+          <NavigationProperty Name="Source" Relationship="Self.FK_Clips_Sources" FromRole="Clips" ToRole="Sources" />
+          <NavigationProperty Name="ClipSpeakers" Relationship="Self.FK_ClipSpeakers_Clips" FromRole="Clips" ToRole="ClipSpeakers" />
+          <NavigationProperty Name="ClipTags" Relationship="Self.FK_ClipTags_Clips" FromRole="Clips" ToRole="ClipTags" />
+        </EntityType>
+        <EntityType Name="ClipSpeaker">
+          <Key>
+            <PropertyRef Name="ClipSpeakerId" />
+          </Key>
+          <Property Name="ClipSpeakerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClipId" Type="Int32" Nullable="false" />
+          <Property Name="SpeakerId" Type="Int32" Nullable="false" />
+          <Property Name="SpeakerOrder" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Clip" Relationship="Self.FK_ClipSpeakers_Clips" FromRole="ClipSpeakers" ToRole="Clips" />
+          <NavigationProperty Name="Speaker" Relationship="Self.FK_ClipSpeakers_Speakers" FromRole="ClipSpeakers" ToRole="Speakers" />
+        </EntityType>
+        <EntityType Name="ClipTag">
+          <Key>
+            <PropertyRef Name="ClipTagId" />
+          </Key>
+          <Property Name="ClipTagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClipId" Type="Int32" Nullable="false" />
+          <Property Name="TagId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Clip" Relationship="Self.FK_ClipTags_Clips" FromRole="ClipTags" ToRole="Clips" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK_ClipTags_Tags" FromRole="ClipTags" ToRole="Tags" />
+        </EntityType>
+        <EntityType Name="Medium">
+          <Key>
+            <PropertyRef Name="MediumId" />
+          </Key>
+          <Property Name="MediumId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MediumName" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Clips" Relationship="Self.FK_Clips_Mediums" FromRole="Mediums" ToRole="Clips" />
+        </EntityType>
+        <EntityType Name="Source">
+          <Key>
+            <PropertyRef Name="SourceId" />
+          </Key>
+          <Property Name="SourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SourceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Website" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Clips" Relationship="Self.FK_Clips_Sources" FromRole="Sources" ToRole="Clips" />
+        </EntityType>
+        <EntityType Name="Speaker">
+          <Key>
+            <PropertyRef Name="SpeakerId" />
+          </Key>
+          <Property Name="SpeakerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Website" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ClipSpeakers" Relationship="Self.FK_ClipSpeakers_Speakers" FromRole="Speakers" ToRole="ClipSpeakers" />
+        </EntityType>
+        <EntityType Name="SubmitterDetail">
+          <Key>
+            <PropertyRef Name="SubmitterId" />
+          </Key>
+          <Property Name="SubmitterId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProfileImage" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Website" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="SubmitterBio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Pubkey" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="TagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TagName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ClipTags" Relationship="Self.FK_ClipTags_Tags" FromRole="Tags" ToRole="ClipTags" />
+        </EntityType>
+        <Association Name="FK_Clips_Categories">
+          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+          <End Role="Clips" Type="Self.Clip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Clips">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clips_Mediums">
+          <End Role="Mediums" Type="Self.Medium" Multiplicity="1" />
+          <End Role="Clips" Type="Self.Clip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mediums">
+              <PropertyRef Name="MediumId" />
+            </Principal>
+            <Dependent Role="Clips">
+              <PropertyRef Name="MediumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clips_Sources">
+          <End Role="Sources" Type="Self.Source" Multiplicity="1" />
+          <End Role="Clips" Type="Self.Clip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sources">
+              <PropertyRef Name="SourceId" />
+            </Principal>
+            <Dependent Role="Clips">
+              <PropertyRef Name="SourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClipSpeakers_Clips">
+          <End Role="Clips" Type="Self.Clip" Multiplicity="1" />
+          <End Role="ClipSpeakers" Type="Self.ClipSpeaker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clips">
+              <PropertyRef Name="ClipId" />
+            </Principal>
+            <Dependent Role="ClipSpeakers">
+              <PropertyRef Name="ClipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClipTags_Clips">
+          <End Role="Clips" Type="Self.Clip" Multiplicity="1" />
+          <End Role="ClipTags" Type="Self.ClipTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clips">
+              <PropertyRef Name="ClipId" />
+            </Principal>
+            <Dependent Role="ClipTags">
+              <PropertyRef Name="ClipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClipSpeakers_Speakers">
+          <End Role="Speakers" Type="Self.Speaker" Multiplicity="1" />
+          <End Role="ClipSpeakers" Type="Self.ClipSpeaker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Speakers">
+              <PropertyRef Name="SpeakerId" />
+            </Principal>
+            <Dependent Role="ClipSpeakers">
+              <PropertyRef Name="SpeakerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClipTags_Tags">
+          <End Role="Tags" Type="Self.Tag" Multiplicity="1" />
+          <End Role="ClipTags" Type="Self.ClipTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="TagId" />
+            </Principal>
+            <Dependent Role="ClipTags">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClipSlitEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Clips" EntityType="Self.Clip" />
+          <EntitySet Name="ClipSpeakers" EntityType="Self.ClipSpeaker" />
+          <EntitySet Name="ClipTags" EntityType="Self.ClipTag" />
+          <EntitySet Name="Mediums" EntityType="Self.Medium" />
+          <EntitySet Name="Sources" EntityType="Self.Source" />
+          <EntitySet Name="Speakers" EntityType="Self.Speaker" />
+          <EntitySet Name="SubmitterDetails" EntityType="Self.SubmitterDetail" />
+          <EntitySet Name="Tags" EntityType="Self.Tag" />
+          <AssociationSet Name="FK_Clips_Categories" Association="Self.FK_Clips_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Clips" EntitySet="Clips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clips_Mediums" Association="Self.FK_Clips_Mediums">
+            <End Role="Mediums" EntitySet="Mediums" />
+            <End Role="Clips" EntitySet="Clips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clips_Sources" Association="Self.FK_Clips_Sources">
+            <End Role="Sources" EntitySet="Sources" />
+            <End Role="Clips" EntitySet="Clips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClipSpeakers_Clips" Association="Self.FK_ClipSpeakers_Clips">
+            <End Role="Clips" EntitySet="Clips" />
+            <End Role="ClipSpeakers" EntitySet="ClipSpeakers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClipTags_Clips" Association="Self.FK_ClipTags_Clips">
+            <End Role="Clips" EntitySet="Clips" />
+            <End Role="ClipTags" EntitySet="ClipTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClipSpeakers_Speakers" Association="Self.FK_ClipSpeakers_Speakers">
+            <End Role="Speakers" EntitySet="Speakers" />
+            <End Role="ClipSpeakers" EntitySet="ClipSpeakers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClipTags_Tags" Association="Self.FK_ClipTags_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="ClipTags" EntitySet="ClipTags" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClipSlitModelStoreContainer" CdmEntityContainer="ClipSlitEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ClipSlitModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clips">
+            <EntityTypeMapping TypeName="ClipSlitModel.Clip">
+              <MappingFragment StoreEntitySet="Clips">
+                <ScalarProperty Name="ClipId" ColumnName="ClipId" />
+                <ScalarProperty Name="ClipTitle" ColumnName="ClipTitle" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="TranscriptFile" ColumnName="TranscriptFile" />
+                <ScalarProperty Name="SubmitterId" ColumnName="SubmitterId" />
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+                <ScalarProperty Name="ClipLength" ColumnName="ClipLength" />
+                <ScalarProperty Name="MediumId" ColumnName="MediumId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClipSpeakers">
+            <EntityTypeMapping TypeName="ClipSlitModel.ClipSpeaker">
+              <MappingFragment StoreEntitySet="ClipSpeakers">
+                <ScalarProperty Name="ClipSpeakerId" ColumnName="ClipSpeakerId" />
+                <ScalarProperty Name="ClipId" ColumnName="ClipId" />
+                <ScalarProperty Name="SpeakerId" ColumnName="SpeakerId" />
+                <ScalarProperty Name="SpeakerOrder" ColumnName="SpeakerOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClipTags">
+            <EntityTypeMapping TypeName="ClipSlitModel.ClipTag">
+              <MappingFragment StoreEntitySet="ClipTags">
+                <ScalarProperty Name="ClipTagId" ColumnName="ClipTagId" />
+                <ScalarProperty Name="ClipId" ColumnName="ClipId" />
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mediums">
+            <EntityTypeMapping TypeName="ClipSlitModel.Medium">
+              <MappingFragment StoreEntitySet="Mediums">
+                <ScalarProperty Name="MediumId" ColumnName="MediumId" />
+                <ScalarProperty Name="MediumName" ColumnName="MediumName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sources">
+            <EntityTypeMapping TypeName="ClipSlitModel.Source">
+              <MappingFragment StoreEntitySet="Sources">
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+                <ScalarProperty Name="SourceName" ColumnName="SourceName" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Speakers">
+            <EntityTypeMapping TypeName="ClipSlitModel.Speaker">
+              <MappingFragment StoreEntitySet="Speakers">
+                <ScalarProperty Name="SpeakerId" ColumnName="SpeakerId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubmitterDetails">
+            <EntityTypeMapping TypeName="ClipSlitModel.SubmitterDetail">
+              <MappingFragment StoreEntitySet="SubmitterDetails">
+                <ScalarProperty Name="SubmitterId" ColumnName="SubmitterId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="SubmitterBio" ColumnName="SubmitterBio" />
+                <ScalarProperty Name="Pubkey" ColumnName="Pubkey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="ClipSlitModel.Tag">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="TagName" ColumnName="TagName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
