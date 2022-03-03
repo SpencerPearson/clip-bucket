@@ -348,6 +348,11 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Prevent sensitive data from being submitted
+/ClipBucket.UI.MVC/configs
+
+#Added to ignore via changes window:
 /ClipBucket.UI.MVC/Web.config
 /ClipBucket.UI.MVC/Content/assets/img
 /ClipBucket.UI.MVC/Content/assets/vendor
